@@ -1,2 +1,2 @@
-ComicPal
+comicpal
 ========
