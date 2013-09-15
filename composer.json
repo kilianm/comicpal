@@ -1,7 +1,7 @@
 {
     "require": {
         "silex/silex": "1.*",
-        "taluu/doctrine-orm-provider": "1.0.*",
+        "dflydev/doctrine-orm-service-provider": "1.*",
         "symfony/yaml": "2.*",
         "twig/twig": "1.*",
         "symfony/twig-bridge": "~2.3"

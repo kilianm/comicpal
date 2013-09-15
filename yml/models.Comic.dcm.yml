@@ -1,43 +1,60 @@
 models\Comic:
     type: entity
     table: comic
-    fields:
+    indexes:
+        fk_comic_author1:
+            columns:
+                - author_id
+        fk_comic_chapter1:
+            columns:
+                - chapter_id
+    id:
         id:
-            id: true
             type: integer
-            unsigned: false
             nullable: false
+            unsigned: false
+            comment: ''
+            id: true
             generator:
                 strategy: IDENTITY
+    fields:
         page:
             type: integer
-            unsigned: false
             nullable: true
+            unsigned: false
+            comment: ''
         title:
             type: string
+            nullable: true
             length: 255
             fixed: false
-            nullable: true
+            comment: ''
         description:
             type: text
             nullable: true
+            length: null
+            fixed: false
+            comment: ''
         imageSrc:
             type: string
+            nullable: true
             length: 255
             fixed: false
-            nullable: true
+            comment: ''
             column: image_src
         imageThumb:
             type: string
+            nullable: true
             length: 255
             fixed: false
-            nullable: true
+            comment: ''
             column: image_thumb
         imageFacebook:
             type: string
+            nullable: true
             length: 255
             fixed: false
-            nullable: true
+            comment: ''
             column: image_facebook
     manyToOne:
         author:

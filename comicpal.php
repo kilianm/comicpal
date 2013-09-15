@@ -1,13 +1,19 @@
 <?php
-use \Doctrine\Common\Cache\ApcCache;
-use \Doctrine\Common\Cache\ArrayCache;
+require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__.'/requires.php';
 
-$app = new Silex\Application();
-$app->em = $entityManager;
+
+use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\ArrayCache;
+use Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
+use Silex\Application;
+use Silex\Provider\DoctrineServiceProvider;
+
+$app = new Application();
 $app['debug'] = true;
 
 // DB
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+$app->register(new DoctrineServiceProvider(), array(
     'db.options'            => array(
         'driver'    => 'pdo_mysql',
         'host'      => 'localhost',
@@ -15,42 +21,41 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 		'user'		=> 'root',
 		'password'	=> 'haxx'
     ),
-    'db.dbal.class_path'    => __DIR__.'/vendor/doctrine-dbal/lib',
-    'db.common.class_path'  => __DIR__.'/vendor/doctrine-common/lib',
 ));
 
+
 // Register Doctrine ORM
-$app->register(new Nutwerk\Provider\DoctrineORMServiceProvider(), array(
-    'db.orm.proxies_dir'           => __DIR__ . '/cache/doctrine/proxy',
-    'db.orm.proxies_namespace'     => 'DoctrineProxy',
-    'db.orm.cache'                 => 
-        !$app['debug'] && extension_loaded('apc') ? new ApcCache() : new ArrayCache(),
-    'db.orm.auto_generate_proxies' => true,
-    'db.orm.entities'              => array(array(
-        'type'      => 'annotation',       // entity definition 
-        'path'      => __DIR__ . '/models',   // path to your entity classes
-        'namespace' => 'models', // your classes namespace
-    )),
+$app->register(new DoctrineOrmServiceProvider(), array(
+    "orm.proxies_dir" => __DIR__."/proxies",
+    "orm.em.options" => array(
+        "mappings" => array(
+            array(
+                "type" => "annotation",
+                "namespace" => "models",
+                "path" => __DIR__."/models",
+                "use_simple_annotation_reader" => false,
+            ),
+        ),
+    ),
 ));
+
 
 // Twig
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path'       => __DIR__.'/templates',
     'twig.class_path' => __DIR__.'/vendor/twig/lib',
-    'twig.options' => array('cache' => __DIR__.'/../cache'),
+    'twig.options' => array('cache' => __DIR__.'/cache'),
 ));
 $app['twig']->addFilter('nl2br', new Twig_Filter_Function('nl2br', array('is_safe' => array('html'))));
 
-require_once "models/Author.php";
-use \models\Author;
 
 // List
 $app->get('/', function () use ($app) {
 
-    $authors = $app['db.orm.em']->find('Author', 2);
-    var_dump($authors);
+    $author = $app['orm.em']->find('models\Author', 1);
+    return $app['twig']->render('index.twig.html', array('authors' => array($author)));
 
-    
+    //return "done";
 
 //    $sql = "SELECT * FROM author;";
 //    $query = $entityManager->createQuery($sql);

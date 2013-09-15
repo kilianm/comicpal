@@ -6,11 +6,10 @@
 <td>CreatedAt</td>
 </tr>
 <!-- ここから、posts配列をループして、投稿記事の情報を表示 -->
-{% for post in posts %}
+{% for author in authors %}
 <tr>
-<td>{{ post.id }}</td>
-<td><a href="{{ app.request.baseUrl }}/blog/{{ post.id }}">{{ post.name }}</a></td>
-<td>{{ post.createdAt|date('Y/m/d H:i') }}</td>
+<td>{{ author.id }}</td>
+<td><a href="{{ app.request.baseUrl }}/blog/{{ author.id }}">{{ author.name }}</a></td>
 </tr>
 {% else %}
 <tr>

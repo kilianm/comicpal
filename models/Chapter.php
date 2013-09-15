@@ -15,7 +15,7 @@ class Chapter
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -57,12 +57,13 @@ class Chapter
      * Set title
      *
      * @param string $title
+     *
      * @return Chapter
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
@@ -80,12 +81,13 @@ class Chapter
      * Set index
      *
      * @param integer $index
+     *
      * @return Chapter
      */
     public function setIndex($index)
     {
         $this->index = $index;
-    
+
         return $this;
     }
 
@@ -103,12 +105,13 @@ class Chapter
      * Set description
      *
      * @param string $description
+     *
      * @return Chapter
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 

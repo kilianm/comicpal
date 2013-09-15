@@ -1,24 +1,31 @@
 models\Chapter:
     type: entity
     table: chapter
-    fields:
+    id:
         id:
-            id: true
             type: integer
-            unsigned: false
             nullable: false
+            unsigned: false
+            comment: ''
+            id: true
             generator:
                 strategy: IDENTITY
+    fields:
         title:
             type: string
+            nullable: true
             length: 255
             fixed: false
-            nullable: true
+            comment: ''
         index:
             type: integer
-            unsigned: false
             nullable: true
+            unsigned: false
+            comment: ''
         description:
             type: text
             nullable: true
+            length: null
+            fixed: false
+            comment: ''
     lifecycleCallbacks: {  }

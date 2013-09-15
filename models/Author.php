@@ -15,7 +15,7 @@ class Author
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -43,12 +43,13 @@ class Author
      * Set name
      *
      * @param string $name
+     *
      * @return Author
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 

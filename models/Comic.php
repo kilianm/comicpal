@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comic
  *
- * @ORM\Table(name="comic")
+ * @ORM\Table(name="comic", indexes={@ORM\Index(name="fk_comic_author1", columns={"author_id"}), @ORM\Index(name="fk_comic_chapter1", columns={"chapter_id"})})
  * @ORM\Entity
  */
 class Comic
@@ -15,7 +15,7 @@ class Comic
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -98,12 +98,13 @@ class Comic
      * Set page
      *
      * @param integer $page
+     *
      * @return Comic
      */
     public function setPage($page)
     {
         $this->page = $page;
-    
+
         return $this;
     }
 
@@ -121,12 +122,13 @@ class Comic
      * Set title
      *
      * @param string $title
+     *
      * @return Comic
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
@@ -144,12 +146,13 @@ class Comic
      * Set description
      *
      * @param string $description
+     *
      * @return Comic
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -167,12 +170,13 @@ class Comic
      * Set imageSrc
      *
      * @param string $imageSrc
+     *
      * @return Comic
      */
     public function setImageSrc($imageSrc)
     {
         $this->imageSrc = $imageSrc;
-    
+
         return $this;
     }
 
@@ -190,12 +194,13 @@ class Comic
      * Set imageThumb
      *
      * @param string $imageThumb
+     *
      * @return Comic
      */
     public function setImageThumb($imageThumb)
     {
         $this->imageThumb = $imageThumb;
-    
+
         return $this;
     }
 
@@ -213,12 +218,13 @@ class Comic
      * Set imageFacebook
      *
      * @param string $imageFacebook
+     *
      * @return Comic
      */
     public function setImageFacebook($imageFacebook)
     {
         $this->imageFacebook = $imageFacebook;
-    
+
         return $this;
     }
 
@@ -236,12 +242,13 @@ class Comic
      * Set author
      *
      * @param \models\Author $author
+     *
      * @return Comic
      */
     public function setAuthor(\models\Author $author = null)
     {
         $this->author = $author;
-    
+
         return $this;
     }
 
@@ -259,12 +266,13 @@ class Comic
      * Set chapter
      *
      * @param \models\Chapter $chapter
+     *
      * @return Comic
      */
     public function setChapter(\models\Chapter $chapter = null)
     {
         $this->chapter = $chapter;
-    
+
         return $this;
     }
 
