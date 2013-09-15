@@ -1,0 +1,61 @@
+models\Comic:
+    type: entity
+    table: comic
+    fields:
+        id:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            generator:
+                strategy: IDENTITY
+        page:
+            type: integer
+            unsigned: false
+            nullable: true
+        title:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+        description:
+            type: text
+            nullable: true
+        imageSrc:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: image_src
+        imageThumb:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: image_thumb
+        imageFacebook:
+            type: string
+            length: 255
+            fixed: false
+            nullable: true
+            column: image_facebook
+    manyToOne:
+        author:
+            targetEntity: models\Author
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                author_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        chapter:
+            targetEntity: models\Chapter
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                chapter_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
